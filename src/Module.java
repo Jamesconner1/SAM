@@ -1,4 +1,6 @@
-
+/**
+ * Simple data class for modules.
+ */
 public class Module {
 
 	private String name;
@@ -10,7 +12,6 @@ public class Module {
 	private int percentageMark;
 
 	public Module(String moduleCode, String name, int credits) {
-		super();
 		this.name = name;
 		this.moduleCode = moduleCode;
 		this.credits = credits;
@@ -21,7 +22,7 @@ public class Module {
 	}
 
 	public void setPercentageMark(int percentageMark) {
-		// validate that percentageMark is <= 100
+		// TODO: validate that percentageMark is <= 100?
 		this.percentageMark = percentageMark;
 	}
 

@@ -1,31 +1,38 @@
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Interface for students that provides default implementations of getSupervisorName + setSupervisorName.
+ *
+ * This is because we want all students to have a standard interface but only PostGradResearch students have supervisors.
+ *
+ * Undergraduate + PostGradTaught students will throw an UnsupportedOperationException if either of these methods is invoked.
+ */
 public interface Student { //created interface for everything that could be related to the student
 	
-	public StudentID getStudentId();
+	StudentID getStudentId();
 	
-	public Date getDateOfBirth();
+	Date getDateOfBirth();
 	
-	public String getFirstName();
+	String getFirstName();
 	
-	public String getLastName();
+	String getLastName();
 	
-	default public String getSupervisorName() {
+	default String getSupervisorName() {
 		throw new UnsupportedOperationException();
 	}
 
-	default public void setSupervisorName(String supervisorName) {
+	default void setSupervisorName(String supervisorName) {
 		throw new UnsupportedOperationException();
 	}
 
-	public List<Module> getModules();
+	List<Module> getModules();
 
-	public void addModule(Module module);
+	void addModule(Module module);
 	
-	public boolean hasPassed();
+	boolean hasPassed();
 
-	public SmartCard getSmartCard();
+	SmartCard getSmartCard();
 	
-	public void issueSmartCard(SmartCard smartCard);
+	void issueSmartCard(SmartCard smartCard);
 }

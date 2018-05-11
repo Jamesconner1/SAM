@@ -1,4 +1,7 @@
-public class PostGradTaught extends AbstractStudent{
+/**
+ * PostGradTaught students inherit module-based functionality from the AbstractStudent base class.
+ */
+public class PostGradTaught extends AbstractStudent {
 
 	public PostGradTaught(StudentID studentID) {
 		// calls parent constructor studentID with max credits of 180 and a minimum module pass mark of 50

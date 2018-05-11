@@ -1,7 +1,13 @@
+/**
+ * Immutable data class for student ID's, ie. does not provide any setters to mutate the internal state.
+ */
 public class StudentID {
 	private char letter;
 	private int number;
-	
+
+	/**
+	 * Constructs a new StudentID from the given arguments, ensuring that the given letter + number are within the allowed range.
+	 */
 	public StudentID(char letter, int number) {
 		this.validateLetter(letter);
 		this.validateNumber(number);

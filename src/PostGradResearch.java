@@ -1,5 +1,12 @@
 import java.util.List;
 
+/**
+ * Unlike the other student types, PostGradResearch students do not have modules so override getModules, addModule +
+ * hasPassed; throwing an UnsupportedOperationException if any of these methods are invoked.
+ *
+ * This class also provides a supervisor name, overriding the default implementations of getSupervisorName +
+ * setSupervisorName.
+ */
 public class PostGradResearch extends AbstractStudent{
 
 	private String supervisorName;

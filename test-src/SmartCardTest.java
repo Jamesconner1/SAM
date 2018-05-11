@@ -27,19 +27,6 @@ public class SmartCardTest {
 	}
 
 	@Test
-	void testSmartCardNumberIsNotIncrementedIfInitialsAreDifferent() {
-		Calendar cal1 = Calendar.getInstance();
-		cal1.set(1998, 3, 25); // month is zero-based
-		new SmartCard("James", "Conner", cal1.getTime());
-		Calendar cal2 = Calendar.getInstance();
-		cal2.set(1980, 7, 20); // month is zero-based
-		SmartCard smartCard = new SmartCard("John", "Smith", cal2.getTime());
-		Assertions.assertEquals("JS-2018-1", smartCard.getSmartCardNumber().toString());
-		assertDateEquals("1980-08-20", smartCard.getDateOfBirth());
-		assertDateEquals(today, smartCard.getDateOfIssue());
-	}
-
-	@Test
 	void testSmartCardNumberIsIncrementedIfInitialsAndYearOfIssueMatch() {
 		Calendar cal1 = Calendar.getInstance();
 		cal1.set(1998, 3, 25); // month is zero-based
@@ -48,6 +35,19 @@ public class SmartCardTest {
 		cal2.set(1980, 7, 20); // month is zero-based
 		SmartCard smartCard = new SmartCard("Jerry", "Chambers", cal2.getTime());
 		Assertions.assertEquals("JC-2018-2", smartCard.getSmartCardNumber().toString());
+		assertDateEquals("1980-08-20", smartCard.getDateOfBirth());
+		assertDateEquals(today, smartCard.getDateOfIssue());
+	}
+
+	@Test
+	void testSmartCardNumberIsNotIncrementedIfInitialsAreDifferent() {
+		Calendar cal1 = Calendar.getInstance();
+		cal1.set(1998, 3, 25); // month is zero-based
+		new SmartCard("James", "Conner", cal1.getTime());
+		Calendar cal2 = Calendar.getInstance();
+		cal2.set(1980, 7, 20); // month is zero-based
+		SmartCard smartCard = new SmartCard("John", "Smith", cal2.getTime());
+		Assertions.assertEquals("JS-2018-1", smartCard.getSmartCardNumber().toString());
 		assertDateEquals("1980-08-20", smartCard.getDateOfBirth());
 		assertDateEquals(today, smartCard.getDateOfIssue());
 	}

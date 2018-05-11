@@ -2,6 +2,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Abstract base class for students that provides implementations of addModule + hasPassed.
+ *
+ * This is because Undergraduate + PostGradTaught students can both use this functionality as is - the only variation
+ * being the max credits and pass mark. That's why we have an overloaded constructor that takes both these values: so the
+ * implementations of Undergraduate + PostGradTaught can pass in their respective details.
+ *
+ * In the case of PostGradResearch students, modules are not applicable so they do not make use of this functionality.
+ */
 public abstract class AbstractStudent implements Student {
 
 	private StudentID studentID;

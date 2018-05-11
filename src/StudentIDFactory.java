@@ -1,3 +1,9 @@
+/**
+ * StudentIDFactory is implemented as a singleton to ensure there's only one instance so that any StudentID instances it
+ * creates are unique across the application.
+ *
+ * It maintains the current letter and number of the student ID, incrementing each as required.
+ */
 public class StudentIDFactory {
 
 	private static final char START_LETTER = 'a'; // 
@@ -30,6 +36,9 @@ public class StudentIDFactory {
 		instance = new StudentIDFactory();
 	}
 
+    /**
+     * Creates a new StudentID based on the given arguments.
+     */
 	public StudentID createStudentID() {
 		StudentID studentID = new StudentID(currentLetter, currentNumber);
 		allocateNewNumber();
