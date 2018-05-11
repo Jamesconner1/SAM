@@ -23,15 +23,20 @@ public class StudentIDFactory {
 		}
 		return instance;
 	}
-	/* END OF SINGLETON PATTERN */	
-	
+	/* END OF SINGLETON PATTERN */
+
+	// reset method to make unit testing easier
+	public void reset() {
+		instance = new StudentIDFactory();
+	}
+
 	public StudentID createStudentID() {
 		StudentID studentID = new StudentID(currentLetter, currentNumber);
 		allocateNewNumber();
 		return studentID;
 	}
-	
-	private void allocateNewNumber() { 
+
+	private void allocateNewNumber() {
 		int newNumber = currentNumber + 1; // adding one to the current number ensures uniqueness
 		if (newNumber > 9999) { // if number is greater that 9999 than the letter goes up by 1
 			currentLetter++;
