@@ -2,10 +2,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +32,7 @@ public class StudentsOnDisk implements StudentManagement {
 
 	@Override
 	public void registerStudent(Student student) {
-	    validateAge(student);
+	    student.validateAge();
 		SmartCard smartCard = new SmartCard(student.getFirstName(), student.getLastName(), student.getDateOfBirth());
 		student.issueSmartCard(smartCard);
 		writeToDisk(student);
@@ -95,27 +91,4 @@ public class StudentsOnDisk implements StudentManagement {
             }
         }
     }
-
-    private void validateAge(Student student) {
-        int age = calculateAge(student.getDateOfBirth());
-        if (age < 17) {
-            throw new RuntimeException("Student not old enough: age=" + age);
-        }
-        // use instance of to determine what type of student we're dealing with
-        if ((student instanceof PostGradTaught || student instanceof PostGradResearch) && age < 20) {
-            throw new RuntimeException("Student not old enough to be post grad: age=" + age);
-        }
-    }
-
-    private int calculateAge(Date dateOfBirth) {
-		LocalDate birthDate = toLocalDate(dateOfBirth);
-		LocalDate currentDate = toLocalDate(new Date());
-        return Period.between(birthDate, currentDate).getYears();
-    }
-    
-    private LocalDate toLocalDate(Date date) {
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		return LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
-	}
 }

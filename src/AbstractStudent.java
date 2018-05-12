@@ -1,4 +1,7 @@
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,8 +13,12 @@ import java.util.List;
  * implementations of Undergraduate + PostGradTaught can pass in their respective details.
  *
  * In the case of PostGradResearch students, modules are not applicable so they do not make use of this functionality.
+ *
+ * This class also implements validateAge, ensuring all students are at least 17yo.
  */
 public abstract class AbstractStudent implements Student {
+
+	private static final int MIN_AGE = 17;
 
 	private StudentID studentID;
 	
@@ -47,6 +54,14 @@ public abstract class AbstractStudent implements Student {
 
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+	}
+
+	@Override
+	public void validateAge() {
+		int age = calculateAge();
+		if (age < MIN_AGE) {
+			throw new RuntimeException("Student not old enough: age=" + age);
+		}
 	}
 
 	public void setFirstName(String firstName) {
@@ -102,5 +117,17 @@ public abstract class AbstractStudent implements Student {
 	@Override
 	public void issueSmartCard(SmartCard smartCard) {
 		this.smartCard = smartCard;
+	}
+
+	protected int calculateAge() {
+		LocalDate birthDate = toLocalDate(dateOfBirth);
+		LocalDate currentDate = toLocalDate(new Date());
+		return Period.between(birthDate, currentDate).getYears();
+	}
+
+	private LocalDate toLocalDate(Date date) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
 	}
 }

@@ -39,14 +39,28 @@ public class StudentsOnDiskTest {
 	}
 
 	@Test
-	public void testThatStudentsAreRejectedIfAgeRulesAreBroken() throws Exception {
+	public void testThatStudentsAreRejectedIfYoungerThan17() throws Exception {
+		AbstractStudent student = new Undergraduate(new StudentID('a', 1234));
+		student.setFirstName("James");
+		student.setLastName("Conner");
+		Date dateOfBirth = (new SimpleDateFormat("yyyy-MM-dd")).parse("2002-04-25");
+		student.setDateOfBirth(dateOfBirth);
+		try {
+			studentsOnDisk.registerStudent(student);
+			Assertions.fail("Expected exception");
+		}
+		catch (Exception e) {
+			Assertions.assertEquals("Student not old enough: age=16", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testThatPostGradStudentsAreRejectedIfYoungerThan20() throws Exception {
 		AbstractStudent student = new PostGradTaught(new StudentID('a', 1234));
 		student.setFirstName("James");
 		student.setLastName("Conner");
 		Date dateOfBirth = (new SimpleDateFormat("yyyy-MM-dd")).parse("1999-04-25");
 		student.setDateOfBirth(dateOfBirth);
-		student.addModule(new Module("H1", "Hello World", 20));
-		student.addModule(new Module("H2", "Hey there", 30));
 		try {
 			studentsOnDisk.registerStudent(student);
 			Assertions.fail("Expected exception");

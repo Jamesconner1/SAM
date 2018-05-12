@@ -13,7 +13,9 @@ public interface Student { //created interface for everything that could be rela
 	StudentID getStudentId();
 	
 	Date getDateOfBirth();
-	
+
+    void validateAge();
+
 	String getFirstName();
 	
 	String getLastName();
